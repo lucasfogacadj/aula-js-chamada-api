@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aula 5 - Lista de estudos com API</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container">
+        <p class="eyebrow">Aplicacoes Front-End</p>
+        <h1>Lista de estudos com API</h1>
+        <p class="hero__text">
+          Evolucao da Aula 4 com JavaScript assincrono, fetch, JSON, status HTTP e tratamento de estados.
+        </p>
+      </div>
+    </header>
+
+    <main class="container layout">
+      <section class="panel">
+        <h2>Novo item manual</h2>
+
+        <form id="study-form" class="study-form">
+          <label class="field">
+            <span>Atividade</span>
+            <input
+              id="study-input"
+              name="title"
+              type="text"
+              placeholder="Ex: Revisar fetch e async/await"
+            />
+          </label>
+
+          <button class="btn btn--primary" type="submit">Adicionar</button>
+        </form>
+
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="panel">
+        <h2>Sugestoes da API</h2>
+        <p class="panel__subtitle">
+          Evolua a lista da Aula 4 consumindo JSONPlaceholder (`/todos`). Use um `userId` de 1 a 10 ou deixe em branco.
+        </p>
+
+        <form id="api-form" class="study-form">
+          <label class="field">
+            <span>User ID</span>
+            <input
+              id="api-user-id"
+              name="userId"
+              type="number"
+              min="1"
+              max="10"
+              placeholder="Ex: 1"
+            />
+          </label>
+
+          <button class="btn btn--ghost" type="submit">Buscar sugestoes</button>
+        </form>
+
+        <p id="api-feedback" class="feedback" aria-live="polite"></p>
+
+        <div class="summary" aria-label="Topicos da aula">
+          <span>Promise</span>
+          <span>async/await</span>
+          <span>fetch</span>
+          <span>JSON</span>
+          <span>status codes</span>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel__header">
+          <div>
+            <h2>Lista dinamica</h2>
+            <p class="panel__subtitle">
+              A mesma lista agora pode receber itens manuais e sugestoes vindas da API.
+            </p>
+          </div>
+
+          <button id="reload-button" class="btn btn--ghost" type="button">
+            Recarregar ultima busca
+          </button>
+        </div>
+
+        <p id="status-message" class="status" aria-live="polite" hidden>
+          Carregando sugestoes da API...
+        </p>
+
+        <p id="empty-state" class="empty-state" hidden>
+          Nenhum item na lista ainda.
+        </p>
+
+        <ul id="study-list" class="study-list" aria-label="Itens de estudo"></ul>
+      </section>
+    </main>
+
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
