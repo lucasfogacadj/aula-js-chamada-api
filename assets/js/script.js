@@ -141,6 +141,7 @@ function createStudyItem(item) {
   li.append(content, removeButton);
 
   return li;
+  
 }
 
 function renderList() {
