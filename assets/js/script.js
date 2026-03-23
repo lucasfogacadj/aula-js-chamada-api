@@ -141,7 +141,7 @@ function createStudyItem(item) {
   li.append(content, removeButton);
 
   return li;
-  
+
 }
 
 function renderList() {
@@ -230,6 +230,10 @@ async function fetchSuggestions(userId = "") {
     // Fazer a requisicao com:
     // const response = await fetch(url);
 
+    const response = await fetch(url);
+
+
+
     // TODO 2:
     // Validar se a resposta foi OK.
     // Dica:
@@ -237,12 +241,25 @@ async function fetchSuggestions(userId = "") {
     //   throw new Error(`Falha HTTP: ${response.status}`);
     // }
 
+    
+    if(!response.ok) {
+      throw new Error(`Falha HTTP: ${response.status}`);
+    }
+
+
     // TODO 3:
     // Converter o corpo com:
     // const data = await response.json();
 
+    const data = await response.json();
+
+
     // TODO 4:
     // Garantir que data seja um array antes de continuar.
+
+    if(!Array.isArray(data)) {
+      throw new Error("Resposta inesperada da API: esperado um array.");
+    }
 
     // TODO 5:
     // Limpar os items atuais e transformar cada todo em:
@@ -254,12 +271,37 @@ async function fetchSuggestions(userId = "") {
     //   userId: todo.userId,
     // }
 
+    items.length = 0;
+
+
+
     // TODO 6:
     // Incrementar nextId a cada item, chamar renderList()
     // e tratar os casos de sucesso e lista vazia.
 
-    setStatus("Complete os TODOs de fetchSuggestions para carregar a API.", "empty");
-    setApiFeedback("A estrutura da Aula 5 ja esta pronta. Falta completar o fetch.", "warning");
+      data.forEach((todo) =>{
+      items.push({
+        id: nextId,
+        title: todo.title,
+        source: "api",
+        completed: todo.completed,
+        userId: todo.userId
+      })
+      nextId ++;
+    })
+
+    renderList();
+
+    if(data.length === 0 )
+    {
+      setStatus("Complete os TODOs de fetchSuggestions para carregar a API.", "empty");
+      setApiFeedback("Busca concluída, mas api nãor retornou itens", "warning");
+      return
+    }
+
+    hideStatus();
+    setApiFeedback(`${data.length} sugestões carregadas. Status ${response.status}.`, "sucess");
+  
   } catch (error) {
     items.length = 0;
     renderList();
